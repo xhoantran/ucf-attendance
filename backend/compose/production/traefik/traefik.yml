@@ -1,0 +1,76 @@
+log:
+  level: INFO
+
+entryPoints:
+  web:
+    # http
+    address: ":80"
+    http:
+      # https://docs.traefik.io/routing/entrypoints/#entrypoint
+      redirections:
+        entryPoint:
+          to: web-secure
+
+  web-secure:
+    # https
+    address: ":443"
+
+  internal:
+    address: ":9999"
+
+certificatesResolvers:
+  letsencrypt:
+    # https://docs.traefik.io/master/https/acme/#lets-encrypt
+    acme:
+      email: "admin@ucf-here.xhoantran.com"
+      storage: /etc/traefik/acme/acme.json
+      # https://docs.traefik.io/master/https/acme/#httpchallenge
+      httpChallenge:
+        entryPoint: web
+
+http:
+  routers:
+    web-secure-router:
+      rule: "Host(`ucf-here.xhoantran.com`)"
+      entryPoints:
+        - web-secure
+      middlewares:
+        - csrf
+      service: django
+      tls:
+        # https://docs.traefik.io/master/routing/routers/#certresolver
+        certResolver: letsencrypt
+
+    lambda-router:
+      rule: "ClientIP(`10.0.0.0/16`)"
+      entryPoints:
+        - internal
+      service: django
+      middlewares:
+        - lambda-headers
+
+  middlewares:
+    csrf:
+      # https://docs.traefik.io/master/middlewares/headers/#hostsproxyheaders
+      # https://docs.djangoproject.com/en/dev/ref/csrf/#ajax
+      headers:
+        hostsProxyHeaders: ["X-CSRFToken"]
+        customRequestHeaders:
+          X-Internal-Service: ""
+
+    lambda-headers:
+      headers:
+        customRequestHeaders:
+          X-Internal-Service: "Lambda"
+
+  services:
+    django:
+      loadBalancer:
+        servers:
+          - url: http://django:5000
+
+providers:
+  # https://docs.traefik.io/master/providers/file/
+  file:
+    filename: /etc/traefik/traefik.yml
+    watch: true

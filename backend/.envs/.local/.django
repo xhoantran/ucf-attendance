@@ -1,0 +1,9 @@
+# General
+# ------------------------------------------------------------------------------
+USE_DOCKER=yes
+IPYTHONDIR=/app/.ipython
+
+# Google OAuth
+# ------------------------------------------------------------------------------
+GOOGLE_OAUTH_CLIENT_ID=825564421794-r8ab0f6er3rmdqn3elts3idn6v3sse7q.apps.googleusercontent.com
+GOOGLE_OAUTH_SECRET=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
