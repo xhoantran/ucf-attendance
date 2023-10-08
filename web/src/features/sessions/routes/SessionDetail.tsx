@@ -94,6 +94,7 @@ export const SessionDetail = () => {
                   name: attendee.student_id.name,
                   email: attendee.student_id.email,
                   time: formatDate(attendee.created_at),
+                  face_recognition_status: attendee.face_recognition_status,
                 })) || []
               }
               filename={
