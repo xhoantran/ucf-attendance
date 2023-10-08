@@ -27,12 +27,7 @@ export const SessionDetail = () => {
 
   const endSession = useEndSession();
   const getSession = useGetSession({ sessionId });
-  const getSessionSecret = useGetSecretSession({
-    sessionId,
-    config: {
-      refetchInterval: 60 * 1000, // 1 minute
-    },
-  });
+  const getSessionSecret = useGetSecretSession({ sessionId });
   const listAttendance = useListAttendance({ sessionId });
 
   useInterval(
