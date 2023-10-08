@@ -40,6 +40,7 @@
     "test": "vitest --passWithNoTests=true",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
+    "prepare": "cd .. && husky install front/.husky",
     "postinstall": "husky install"
   },
   "dependencies": {
