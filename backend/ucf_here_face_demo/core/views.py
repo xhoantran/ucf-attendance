@@ -1,9 +1,7 @@
-from typing import Any
-
 from django.core.cache import cache
 from django.utils import timezone
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import exceptions, generics, permissions, viewsets
+from rest_framework import exceptions, generics, permissions, viewsets, views
 from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter
 from rest_framework.request import Request
@@ -160,5 +158,15 @@ class AttendanceReportDetailAPIView(generics.RetrieveAPIView):
             "session_id__course_id",
         ).filter(
             session_id__course_id__teacher_id=self.request.user,
-            face_recognition_status=Attendance.FaceRecognitionStatus.FAILED,
         )
+
+
+class AttendanceOverrideAPIView(views.APIView):
+    def post(self, request: Request, pk=None):
+        if not IsTeacher().has_permission(request, Attendance):
+            raise exceptions.PermissionDenied()
+
+        attendance = Attendance.objects.get(pk=pk)
+        attendance.face_recognition_status = Attendance.FaceRecognitionStatus.SUCCESS
+        attendance.save()
+        return Response(AttendanceSerializer(attendance).data)
