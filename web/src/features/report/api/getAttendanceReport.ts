@@ -31,7 +31,7 @@ export const useGetAttendanceReport = ({
 }: useGetAttendanceReportOptions) => {
   return useQuery<ExtractFnReturnType<QueryFnType>>({
     ...config,
-    queryKey: ["attendance", attendanceId],
+    queryKey: ["attendance", `${attendanceId}`],
     queryFn: () => getAttendanceReport({ attendanceId }),
   });
 };

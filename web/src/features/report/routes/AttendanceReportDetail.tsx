@@ -3,11 +3,13 @@ import { BreadCrumb } from "@/components/Elements/BreadCrumb";
 import { formatDate } from "@/utils/format";
 import { useParams } from "react-router-dom";
 import { useGetAttendanceReport } from "../api/getAttendanceReport";
+import { useOverrideAttendance } from "../api/overrideAttendance";
 
 export const AttendanceReportDetail = () => {
   const { attendanceId } = useParams() as { attendanceId: string };
 
   const getAttendanceReport = useGetAttendanceReport({ attendanceId });
+  const overrideAttendance = useOverrideAttendance();
 
   return (
     <>
@@ -29,6 +31,15 @@ export const AttendanceReportDetail = () => {
             <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
               Attendance Report
             </h2>
+          </div>
+          <div>
+            <button
+              type="button"
+              className="rounded-md bg-blue-600 ml-3 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+              onClick={() => overrideAttendance.mutate({ attendanceId })}
+            >
+              Override
+            </button>
           </div>
         </div>
       </div>
@@ -77,7 +88,12 @@ export const AttendanceReportDetail = () => {
                 Face Recognition Status
               </dt>
               <dd className="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
-                <Badge color="red">Failed</Badge>
+                {getAttendanceReport.data?.face_recognition_status ===
+                "SUCCESS" ? (
+                  <Badge color="green">Success</Badge>
+                ) : (
+                  <Badge color="red">Failed</Badge>
+                )}
               </dd>
             </div>
           </dl>
