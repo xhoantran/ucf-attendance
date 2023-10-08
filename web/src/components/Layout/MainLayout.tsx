@@ -10,7 +10,7 @@ import clsx from "clsx";
 import { Fragment, useState } from "react";
 import { NavLink } from "react-router-dom";
 
-import logo from "@/assets/plain-logo.png";
+import logo from "@/assets/logo.png";
 import { useAuth } from "@/stores/useAuth";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
 import { ArrowRightOnRectangleIcon } from "@heroicons/react/24/solid";

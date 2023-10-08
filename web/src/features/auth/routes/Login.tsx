@@ -1,6 +1,6 @@
 import { useGoogleLogin } from "@react-oauth/google";
 
-import logo from "@/assets/logo.webp";
+import logo from "@/assets/logo.png";
 import { useAuth } from "@/stores/useAuth";
 
 export const Login = () => {
