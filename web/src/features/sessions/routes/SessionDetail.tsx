@@ -14,6 +14,7 @@ import { useGetSession } from "../api/getSession";
 import { useGetSecretSession } from "../api/getSessionSecret";
 import { useListAttendance } from "../api/listAttendance";
 import { useEndSession } from "../api/endSession";
+import { Badge } from "@/components/Elements";
 
 const tabs = [{ name: "QR Code" }, { name: "Attendees" }];
 
@@ -200,6 +201,12 @@ export const SessionDetail = () => {
                       >
                         Time
                       </th>
+                      <th
+                        scope="col"
+                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                      >
+                        Facial Recognition
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200 bg-white">
@@ -216,6 +223,15 @@ export const SessionDetail = () => {
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                           {formatDate(attendee.created_at)}
+                        </td>
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                          {attendee.face_recognition_status === "SUCCESS" ? (
+                            <Badge color="green">Success</Badge>
+                          ) : attendee.face_recognition_status === "FAILED" ? (
+                            <Badge color="red">Failed</Badge>
+                          ) : (
+                            <Badge color="yellow">Pending</Badge>
+                          )}
                         </td>
                       </tr>
                     ))}
