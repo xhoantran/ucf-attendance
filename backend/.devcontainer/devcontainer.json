@@ -1,6 +1,6 @@
 // For format details, see https://containers.dev/implementors/json_reference/
 {
-    "name": "ucf_here_face_demo_dev",
+    "name": "attendance_dev",
     "dockerComposeFile": [
         "../local.yml"
     ],

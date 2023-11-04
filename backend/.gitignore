@@ -271,7 +271,7 @@ tags
 dump.rdb
 
 ### Project template
-ucf_here_face_demo/media/
+attendance/media/
 
 .pytest_cache/
 .ipython/

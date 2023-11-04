@@ -22,7 +22,7 @@ certificatesResolvers:
   letsencrypt:
     # https://docs.traefik.io/master/https/acme/#lets-encrypt
     acme:
-      email: "admin@ucf-here.xhoantran.com"
+      email: "admin@attendance.xhoantran.com"
       storage: /etc/traefik/acme/acme.json
       # https://docs.traefik.io/master/https/acme/#httpchallenge
       httpChallenge:
@@ -31,7 +31,7 @@ certificatesResolvers:
 http:
   routers:
     web-secure-router:
-      rule: "Host(`ucf-here.xhoantran.com`)"
+      rule: "Host(`attendance.xhoantran.com`)"
       entryPoints:
         - web-secure
       middlewares:

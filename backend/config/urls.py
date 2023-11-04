@@ -11,7 +11,7 @@ urlpatterns = [
 # API URLS
 urlpatterns += [
     # API Auth
-    path("api-auth/v1/", include("ucf_here_face_demo.users.urls")),
+    path("api-auth/v1/", include("attendance.users.urls")),
     # API base url
     path("api/v1/", include("config.api_router")),
     path("api/v1/schema/", SpectacularAPIView.as_view(), name="api-schema"),

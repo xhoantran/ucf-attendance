@@ -6,8 +6,8 @@ from pathlib import Path
 import environ
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
-# ucf_here_face_demo/
-APPS_DIR = BASE_DIR / "ucf_here_face_demo"
+# attendance/
+APPS_DIR = BASE_DIR / "attendance"
 env = environ.Env()
 
 READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
@@ -39,8 +39,6 @@ SITE_ID = 1
 USE_I18N = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#use-tz
 USE_TZ = True
-# https://docs.djangoproject.com/en/dev/ref/settings/#locale-paths
-LOCALE_PATHS = [str(BASE_DIR / "locale")]
 
 # DATABASES
 # ------------------------------------------------------------------------------
@@ -85,8 +83,8 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    "ucf_here_face_demo.users",
-    "ucf_here_face_demo.core",
+    "attendance.users",
+    "attendance.core",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -94,7 +92,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 # MIGRATIONS
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#migration-modules
-MIGRATION_MODULES = {"sites": "ucf_here_face_demo.contrib.sites.migrations"}
+MIGRATION_MODULES = {"sites": "attendance.contrib.sites.migrations"}
 
 # AUTHENTICATION
 # ------------------------------------------------------------------------------
@@ -135,7 +133,6 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -227,7 +224,7 @@ EMAIL_TIMEOUT = 5
 # Django Admin URL.
 ADMIN_URL = "admin/"
 # https://docs.djangoproject.com/en/dev/ref/settings/#admins
-ADMINS = [("""Hoan Tran, Van Phat""", "admin@ucf-here.xhoantran.com")]
+ADMINS = [("""Admin""", "admin@attendance.xhoantran.com")]
 # https://docs.djangoproject.com/en/dev/ref/settings/#managers
 MANAGERS = ADMINS
 # https://cookiecutter-django.readthedocs.io/en/latest/settings.html#other-environment-settings
@@ -274,13 +271,13 @@ ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_EMAIL_VERIFICATION = "none"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
-ACCOUNT_ADAPTER = "ucf_here_face_demo.users.adapters.AccountAdapter"
+ACCOUNT_ADAPTER = "attendance.users.adapters.AccountAdapter"
 # https://django-allauth.readthedocs.io/en/latest/forms.html
-ACCOUNT_FORMS = {"signup": "ucf_here_face_demo.users.forms.UserSignupForm"}
+ACCOUNT_FORMS = {"signup": "attendance.users.forms.UserSignupForm"}
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
-SOCIALACCOUNT_ADAPTER = "ucf_here_face_demo.users.adapters.SocialAccountAdapter"
+SOCIALACCOUNT_ADAPTER = "attendance.users.adapters.SocialAccountAdapter"
 # https://django-allauth.readthedocs.io/en/latest/forms.html
-SOCIALACCOUNT_FORMS = {"signup": "ucf_here_face_demo.users.forms.UserSocialSignupForm"}
+SOCIALACCOUNT_FORMS = {"signup": "attendance.users.forms.UserSocialSignupForm"}
 SOCIALACCOUNT_EMAIL_AUTHENTICATION_AUTO_CONNECT = True
 SOCIALACCOUNT_PROVIDERS = {
     "google": {
@@ -313,8 +310,8 @@ CORS_ALLOWED_ORIGINS = [FRONTEND_BASE_URL]
 # By Default swagger ui is available only to admin user(s). You can change permission classes to change that
 # See more configuration options at https://drf-spectacular.readthedocs.io/en/latest/settings.html#settings
 SPECTACULAR_SETTINGS = {
-    "TITLE": "ucf-here-face-demo API",
-    "DESCRIPTION": "Documentation of API endpoints of ucf-here-face-demo",
+    "TITLE": "Attendance Tracking System API",
+    "DESCRIPTION": "Documentation of API endpoints of Attendance Tracking System",
     "VERSION": "1.0.0",
     "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAdminUser"],
 }
@@ -325,5 +322,5 @@ SPECTACULAR_SETTINGS = {
 REST_AUTH = {
     "USE_JWT": True,
     "JWT_AUTH_HTTPONLY": False,
-    "USER_DETAILS_SERIALIZER": "ucf_here_face_demo.users.serializers.UserSerializer",
+    "USER_DETAILS_SERIALIZER": "attendance.users.serializers.UserSerializer",
 }

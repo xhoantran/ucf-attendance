@@ -1,4 +1,4 @@
-const storagePrefix = "ucf_here_";
+const storagePrefix = "attendance_";
 
 const storage = {
   getAccessToken: () => {

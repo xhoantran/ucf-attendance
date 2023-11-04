@@ -107,8 +107,8 @@ resource "aws_lambda_function" "sqs_processor" {
   }
 }
 
-# # CloudWatch Log Group for the Lambda function
-# resource "aws_cloudwatch_log_group" "lambda_loggroup" {
-#   name              = "/aws/lambda/${aws_lambda_function.sqs_processor.function_name}"
-#   retention_in_days = 1
-# }
+# CloudWatch Log Group for the Lambda function
+resource "aws_cloudwatch_log_group" "lambda_loggroup" {
+  name              = "/aws/lambda/${aws_lambda_function.sqs_processor.function_name}"
+  retention_in_days = 1
+}

@@ -2,6 +2,6 @@
 # ------------------------------------------------------------------------------
 POSTGRES_HOST=postgres
 POSTGRES_PORT=5432
-POSTGRES_DB=ucf_here_face_demo
+POSTGRES_DB=attendance
 POSTGRES_USER=tVFKAGAtvoDorFhjUbpWroifTgyNfCmZ
 POSTGRES_PASSWORD=qZs46ys7JhTShkx0fuvxVZrxQXdcI1jDvEKFx1HbBWjOFDx25EPKV4o75xQd8sS5

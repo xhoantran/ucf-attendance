@@ -16,7 +16,7 @@ SECRET_KEY = env("DJANGO_SECRET_KEY")
 ALLOWED_HOSTS = env.list(
     "DJANGO_ALLOWED_HOSTS",
     default=[
-        "ucf-here.xhoantran.com",
+        "attendance.xhoantran.com",
         "10.0.15.46",
     ],
 )
@@ -91,12 +91,12 @@ AWS_S3_CUSTOM_DOMAIN = env("DJANGO_AWS_S3_CUSTOM_DOMAIN", default=None)
 aws_s3_domain = AWS_S3_CUSTOM_DOMAIN or f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
 # STATIC
 # ------------------------
-STATICFILES_STORAGE = "ucf_here_face_demo.utils.storages.StaticS3Storage"
+STATICFILES_STORAGE = "attendance.utils.storages.StaticS3Storage"
 COLLECTFAST_STRATEGY = "collectfast.strategies.boto3.Boto3Strategy"
 STATIC_URL = f"https://{aws_s3_domain}/static/"
 # MEDIA
 # ------------------------------------------------------------------------------
-DEFAULT_FILE_STORAGE = "ucf_here_face_demo.utils.storages.MediaS3Storage"
+DEFAULT_FILE_STORAGE = "attendance.utils.storages.MediaS3Storage"
 MEDIA_BUCKET_NAME = env("DJANGO_MEDIA_BUCKET_NAME", default=None)
 MEDIA_URL = f"https://{MEDIA_BUCKET_NAME}.s3.amazonaws.com/"
 
@@ -105,14 +105,14 @@ MEDIA_URL = f"https://{MEDIA_BUCKET_NAME}.s3.amazonaws.com/"
 # https://docs.djangoproject.com/en/dev/ref/settings/#default-from-email
 DEFAULT_FROM_EMAIL = env(
     "DJANGO_DEFAULT_FROM_EMAIL",
-    default="ucf-here-face-demo <noreply@ucf-here.xhoantran.com>",
+    default="AttendanceTrackingSystem <noreply@attendance.xhoantran.com>",
 )
 # https://docs.djangoproject.com/en/dev/ref/settings/#server-email
 SERVER_EMAIL = env("DJANGO_SERVER_EMAIL", default=DEFAULT_FROM_EMAIL)
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-subject-prefix
 EMAIL_SUBJECT_PREFIX = env(
     "DJANGO_EMAIL_SUBJECT_PREFIX",
-    default="[ucf-here-face-demo] ",
+    default="[AttendanceTrackingSystem] ",
 )
 
 # ADMIN
@@ -194,7 +194,7 @@ sentry_sdk.init(
 # -------------------------------------------------------------------------------
 # Tools that generate code samples can use SERVERS to point to the correct domain
 SPECTACULAR_SETTINGS["SERVERS"] = [  # noqa: F405
-    {"url": "https://ucf-here.xhoantran.com", "description": "Production server"},
+    {"url": "https://attendance.xhoantran.com", "description": "Production server"},
 ]
 # Your stuff...
 # ------------------------------------------------------------------------------

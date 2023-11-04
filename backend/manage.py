@@ -24,8 +24,8 @@ if __name__ == "__main__":
         raise
 
     # This allows easy placement of apps within the interior
-    # ucf_here_face_demo directory.
+    # attendance directory.
     current_path = Path(__file__).parent.resolve()
-    sys.path.append(str(current_path / "ucf_here_face_demo"))
+    sys.path.append(str(current_path / "attendance"))
 
     execute_from_command_line(sys.argv)
