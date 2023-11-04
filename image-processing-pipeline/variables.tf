@@ -3,7 +3,7 @@ variable "aws_region" {
   description = "AWS Region to deploy to"
 }
 
-variable "app_env" {
+variable "app_prefix" {
   default     = "attendance"
   description = "Common prefix for all Terraform created resources"
 }

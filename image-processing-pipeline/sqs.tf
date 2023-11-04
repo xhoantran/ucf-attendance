@@ -1,6 +1,6 @@
 # SQS queue
 resource "aws_sqs_queue" "queue" {
-  name           = "${var.app_env}-s3-event-notification"
+  name           = "${var.app_prefix}-s3-event-notification"
   policy         = <<POLICY
   {
     "Version": "2012-10-17",
@@ -9,7 +9,7 @@ resource "aws_sqs_queue" "queue" {
         "Effect": "Allow",
         "Principal": "*",
         "Action": "sqs:SendMessage",
-        "Resource": "arn:aws:sqs:*:*:${var.app_env}-s3-event-notification-queue",
+        "Resource": "arn:aws:sqs:*:*:${var.app_prefix}-s3-event-notification-queue",
         "Condition": {
           "ArnEquals": { "aws:SourceArn": "${aws_s3_bucket.bucket.arn}" }
         }
@@ -26,5 +26,5 @@ resource "aws_sqs_queue" "queue" {
 }
 
 resource "aws_sqs_queue" "dead_letter_queue" {
-  name = "${var.app_env}-s3-event-notification-dlq"
+  name = "${var.app_prefix}-s3-event-notification-dlq"
 }

@@ -7,8 +7,8 @@ data "archive_file" "lambda_zip" {
 
 # Lambda function policy
 resource "aws_iam_policy" "lambda_policy" {
-  name        = "${var.app_env}-lambda-policy"
-  description = "${var.app_env}-lambda-policy"
+  name        = "${var.app_prefix}-lambda-policy"
+  description = "${var.app_prefix}-lambda-policy"
 
   policy = <<EOF
 {
@@ -64,7 +64,7 @@ EOF
 
 # Lambda function role
 resource "aws_iam_role" "iam_for_terraform_lambda" {
-  name               = "${var.app_env}-lambda-role"
+  name               = "${var.app_prefix}-lambda-role"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -80,6 +80,7 @@ resource "aws_iam_role" "iam_for_terraform_lambda" {
 }
 EOF
 }
+
 # Role to Policy attachment
 resource "aws_iam_role_policy_attachment" "terraform_lambda_iam_policy_basic_execution" {
   role       = aws_iam_role.iam_for_terraform_lambda.id
@@ -90,7 +91,7 @@ resource "aws_iam_role_policy_attachment" "terraform_lambda_iam_policy_basic_exe
 resource "aws_lambda_function" "sqs_processor" {
   filename         = "lambda.zip"
   source_code_hash = data.archive_file.lambda_zip.output_base64sha256
-  function_name    = "${var.app_env}-lambda"
+  function_name    = "${var.app_prefix}-lambda"
   role             = aws_iam_role.iam_for_terraform_lambda.arn
   timeout          = 5
   handler          = "index.handler"

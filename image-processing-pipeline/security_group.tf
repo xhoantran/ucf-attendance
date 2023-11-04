@@ -1,7 +1,8 @@
 resource "aws_security_group" "lambda_sg" {
-  name        = "${var.app_env}-lambda-sg"
+  name        = "${var.app_prefix}-lambda-sg"
   description = "Security group for lambda function"
-  vpc_id      = data.attendance_core_infra.outputs.attendance-vpc-id
+  vpc_id      = data.terraform_remote_state.attendance_core_infra.outputs.attendance-vpc-id
+
   egress = [{
     description      = "for all outgoing traffics"
     from_port        = 0
