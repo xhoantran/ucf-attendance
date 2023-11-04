@@ -1,6 +1,6 @@
 # S3 bucket
 resource "aws_s3_bucket" "bucket" {
-  bucket = "${var.app_env}-s3-sqs-demo-bucket"
+  bucket = "${var.app_env}-attendance-images"
 }
 
 # S3 event filter

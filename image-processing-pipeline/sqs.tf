@@ -1,6 +1,6 @@
 # SQS queue
 resource "aws_sqs_queue" "queue" {
-  name           = "${var.app_env}-s3-event-notification-queue"
+  name           = "${var.app_env}-s3-event-notification"
   policy         = <<POLICY
   {
     "Version": "2012-10-17",
@@ -26,5 +26,5 @@ resource "aws_sqs_queue" "queue" {
 }
 
 resource "aws_sqs_queue" "dead_letter_queue" {
-  name = "${var.app_env}-s3-event-notification-queue-dead-letter"
+  name = "${var.app_env}-s3-event-notification-dlq"
 }
