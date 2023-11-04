@@ -10,15 +10,15 @@ locals {
   }
 }
 
-resource "aws_vpc" "video_streaming_vpc" {
+resource "aws_vpc" "attendance_vpc" {
   cidr_block = local.vpc_cidr_block
   tags = {
     Name = "${var.app_prefix}-vpc"
   }
 }
 
-resource "aws_internet_gateway" "video_streaming_internet_gateway" {
-  vpc_id = aws_vpc.video_streaming_vpc.id
+resource "aws_internet_gateway" "attendance_internet_gateway" {
+  vpc_id = aws_vpc.attendance_vpc.id
   tags = {
     Name = "${var.app_prefix}-internet-gateway"
   }
@@ -27,7 +27,7 @@ resource "aws_internet_gateway" "video_streaming_internet_gateway" {
 resource "aws_subnet" "public" {
   count      = length(local.public_subnets)
   cidr_block = element(values(local.public_subnets), count.index)
-  vpc_id     = aws_vpc.video_streaming_vpc.id
+  vpc_id     = aws_vpc.attendance_vpc.id
 
   map_public_ip_on_launch = true
   availability_zone       = element(keys(local.public_subnets), count.index)
@@ -40,7 +40,7 @@ resource "aws_subnet" "public" {
 resource "aws_subnet" "private" {
   count      = length(local.private_subnets)
   cidr_block = element(values(local.private_subnets), count.index)
-  vpc_id     = aws_vpc.video_streaming_vpc.id
+  vpc_id     = aws_vpc.attendance_vpc.id
 
   map_public_ip_on_launch = true
   availability_zone       = element(keys(local.private_subnets), count.index)
@@ -51,7 +51,7 @@ resource "aws_subnet" "private" {
 }
 
 resource "aws_default_route_table" "public" {
-  default_route_table_id = aws_vpc.video_streaming_vpc.main_route_table_id
+  default_route_table_id = aws_vpc.attendance_vpc.main_route_table_id
 
   tags = {
     Name = "${var.app_prefix}-public"
@@ -62,7 +62,7 @@ resource "aws_route" "public_internet_gateway" {
   count                  = length(local.public_subnets)
   route_table_id         = aws_default_route_table.public.id
   destination_cidr_block = "0.0.0.0/0"
-  gateway_id             = aws_internet_gateway.video_streaming_internet_gateway.id
+  gateway_id             = aws_internet_gateway.attendance_internet_gateway.id
 
   timeouts {
     create = "5m"
@@ -76,7 +76,7 @@ resource "aws_route_table_association" "public" {
 }
 
 resource "aws_route_table" "private" {
-  vpc_id = aws_vpc.video_streaming_vpc.id
+  vpc_id = aws_vpc.attendance_vpc.id
 
   tags = {
     Name = "${var.app_prefix}-private"
