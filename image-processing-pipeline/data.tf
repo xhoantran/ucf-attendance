@@ -13,6 +13,6 @@ data "terraform_remote_state" "attendance_core_infra" {
 data "aws_subnets" "attendace_public_subnets" {
   filter {
     name   = "tag:Name"
-    values = ["attendance-subnet-public*"]
+    values = ["attendance-public-subnet*"]
   }
 }
