@@ -1,11 +1,15 @@
 data "aws_iam_policy_document" "s3_event_notification_policy" {
   statement {
-    actions   = ["sqs:SendMessage"]
-    resources = ["${aws_sqs_queue.queue.arn}"]
+    effect = "Allow"
+
     principals {
-      type        = "AWS"
-      identifiers = ["*"]
+      type        = "Service"
+      identifiers = ["s3.amazonaws.com"]
     }
+
+    actions   = ["sqs:SendMessage"]
+    resources = ["arn:aws:sqs:*:*:${var.app_prefix}-s3-event-notification"]
+
     condition {
       test     = "ArnEquals"
       variable = "aws:SourceArn"
