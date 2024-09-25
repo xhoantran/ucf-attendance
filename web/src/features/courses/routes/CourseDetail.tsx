@@ -7,8 +7,8 @@ import { BreadCrumb } from "@/components/Elements/BreadCrumb";
 export const CourseDetail = () => {
   const { courseId } = useParams() as { courseId: string };
   const getCourse = useGetCourse({ courseId });
-
   return (
+    
     <>
       <BreadCrumb
         pages={[
