@@ -87,29 +87,29 @@ resource "aws_iam_role_policy_attachment" "terraform_lambda_iam_policy_basic_exe
   policy_arn = aws_iam_policy.lambda_policy.arn
 }
 
-# # Lambda function declaration
-# resource "aws_lambda_function" "sqs_processor" {
-#   filename         = "lambda.zip"
-#   source_code_hash = data.archive_file.lambda_zip.output_base64sha256
-#   function_name    = "${var.app_prefix}-lambda"
-#   role             = aws_iam_role.iam_for_terraform_lambda.arn
-#   timeout          = 5
-#   handler          = "index.handler"
-#   runtime          = "python3.9"
-#   vpc_config {
-#     # Using data aws_subnets to get the subnet ids
-#     subnet_ids         = data.aws_subnets.attendance_public_subnets.ids
-#     security_group_ids = [aws_security_group.lambda_sg.id]
-#   }
-#   environment {
-#     variables = {
-#       BACKEND_URL = "http://10.0.15.46:9999/api/v1/image-processing-callback/"
-#     }
-#   }
-# }
+# Lambda function declaration
+resource "aws_lambda_function" "sqs_processor" {
+  filename         = "lambda.zip"
+  source_code_hash = data.archive_file.lambda_zip.output_base64sha256
+  function_name    = "${var.app_prefix}-lambda"
+  role             = aws_iam_role.iam_for_terraform_lambda.arn
+  timeout          = 5
+  handler          = "index.handler"
+  runtime          = "python3.9"
+  vpc_config {
+    # Using data aws_subnets to get the subnet ids
+    subnet_ids         = data.aws_subnets.attendance_public_subnets.ids
+    security_group_ids = [aws_security_group.lambda_sg.id]
+  }
+  environment {
+    variables = {
+      BACKEND_URL = "http://10.0.15.46:9999/api/v1/image-processing-callback/"
+    }
+  }
+}
 
-# # CloudWatch Log Group for the Lambda function
-# resource "aws_cloudwatch_log_group" "lambda_loggroup" {
-#   name              = "/aws/lambda/${aws_lambda_function.sqs_processor.function_name}"
-#   retention_in_days = 1
-# }
+# CloudWatch Log Group for the Lambda function
+resource "aws_cloudwatch_log_group" "lambda_loggroup" {
+  name              = "/aws/lambda/${aws_lambda_function.sqs_processor.function_name}"
+  retention_in_days = 1
+}
