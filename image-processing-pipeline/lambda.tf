@@ -98,7 +98,7 @@ resource "aws_lambda_function" "sqs_processor" {
   runtime          = "python3.9"
   vpc_config {
     # Using data aws_subnets to get the subnet ids
-    subnet_ids         = data.aws_subnets.attendace_public_subnets.ids
+    subnet_ids         = data.aws_subnets.attendance_public_subnets.ids
     security_group_ids = [aws_security_group.lambda_sg.id]
   }
   environment {

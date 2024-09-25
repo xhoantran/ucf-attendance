@@ -10,9 +10,13 @@ data "terraform_remote_state" "attendance_core_infra" {
 }
 
 
-data "aws_subnets" "attendace_public_subnets" {
+data "aws_subnets" "attendance_public_subnets" {
   filter {
-    name   = "tag:Name"
-    values = ["attendance-public-subnet*"]
+    name   = "vpc-id"
+    values = [data.terraform_remote_state.attendance_core_infra.outputs.attendance-vpc-id]
+  }
+
+  tags = {
+    Name = "attendance-public-subnet"
   }
 }
