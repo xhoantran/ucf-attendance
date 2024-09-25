@@ -109,7 +109,7 @@ resource "aws_iam_role_policy_attachment" "terraform_lambda_iam_policy_basic_exe
 # }
 
 # CloudWatch Log Group for the Lambda function
-resource "aws_cloudwatch_log_group" "lambda_loggroup" {
-  name              = "/aws/lambda/${aws_lambda_function.sqs_processor.function_name}"
-  retention_in_days = 1
-}
+# resource "aws_cloudwatch_log_group" "lambda_loggroup" {
+#   name              = "/aws/lambda/${aws_lambda_function.sqs_processor.function_name}"
+#   retention_in_days = 1
+# }
