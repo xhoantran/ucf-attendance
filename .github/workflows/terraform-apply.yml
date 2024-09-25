@@ -25,21 +25,21 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Upload Configuration Core Infra
-        uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.2.0
+        uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.3.1
         id: core-infra-apply-upload
         with:
           workspace: ${{ env.CORE_INFRA_TF_WORKSPACE }}
           directory: "${{ env.CONFIG_DIRECTORY }}/${{ env.CORE_INFRA_DIR }}"
 
       - name: Create Apply Run Core Infra
-        uses: hashicorp/tfc-workflows-github/actions/create-run@v1.2.0
+        uses: hashicorp/tfc-workflows-github/actions/create-run@v1.3.1
         id: core-infra-apply-run
         with:
           workspace: ${{ env.CORE_INFRA_TF_WORKSPACE }}
           configuration_version: ${{ steps.core-infra-apply-upload.outputs.configuration_version_id }}
 
       - name: Apply Core Infra
-        uses: hashicorp/tfc-workflows-github/actions/apply-run@v1.2.0
+        uses: hashicorp/tfc-workflows-github/actions/apply-run@v1.3.1
         if: fromJSON(steps.core-infra-apply-run.outputs.payload).data.attributes.actions.IsConfirmable
         id: core-infra-apply
         with:
@@ -47,7 +47,7 @@ jobs:
           comment: "Apply Run from GitHub Actions CI ${{ github.sha }}"
 
       - name: Upload Configuration Image Processing
-        uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.2.0
+        uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.3.1
         if: ${{ steps.core-infra-apply.outputs.status == 'success' }}
         id: image-processing-apply-upload
         with:
@@ -55,14 +55,14 @@ jobs:
           directory: "${{ env.CONFIG_DIRECTORY }}/${{ env.IMAGE_PROCESSING_DIR }}"
 
       - name: Create Apply Run Image Processing
-        uses: hashicorp/tfc-workflows-github/actions/create-run@v1.2.0
+        uses: hashicorp/tfc-workflows-github/actions/create-run@v1.3.1
         id: image-processing-apply-run
         with:
           workspace: ${{ env.IMAGE_PROCESSING_TF_WORKSPACE }}
           configuration_version: ${{ steps.image-processing-apply-upload.outputs.configuration_version_id }}
 
       - name: Apply Image Processing
-        uses: hashicorp/tfc-workflows-github/actions/apply-run@v1.2.0
+        uses: hashicorp/tfc-workflows-github/actions/apply-run@v1.3.1
         if: fromJSON(steps.image-processing-apply-run.outputs.payload).data.attributes.actions.IsConfirmable
         id: image-processing-apply
         with:
