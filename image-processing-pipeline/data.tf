@@ -17,6 +17,6 @@ data "aws_subnets" "attendance_public_subnets" {
   }
 
   tags = {
-    Name = "attendance-public-subnet"
+    Name = "attendance-public-subnet*"
   }
 }
