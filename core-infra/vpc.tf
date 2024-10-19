@@ -8,6 +8,10 @@ locals {
     "${var.aws_region}a" = "10.0.201.0/24"
     "${var.aws_region}b" = "10.0.202.0/24"
   }
+  db_subnet = {
+    "${var.aws_region}a" = "10.0.301.0/24"
+    "${var.aws_region}b" = "10.0.302.0/24"
+  }
 }
 
 resource "aws_vpc" "attendance_vpc" {
