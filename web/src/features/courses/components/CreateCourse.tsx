@@ -9,7 +9,7 @@ import * as z from "zod";
 import { useCreateCourse } from "../api/createCourse";
 
 const CreateCourseSchema = z.object({
-  name: z.string().nonempty("Name is required"),
+  name: z.string().min(1, "Name is required"),
 });
 
 const defaultValues = {

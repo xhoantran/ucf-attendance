@@ -1,4 +1,3 @@
-import { GoogleOAuthProvider } from "@react-oauth/google";
 import * as React from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { QueryClientProvider } from "@tanstack/react-query";
@@ -45,11 +44,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
           {import.meta.env.NODE_ENV !== "test" && <ReactQueryDevtools />}
           <Notifications />
           <AuthProvider>
-            <GoogleOAuthProvider
-              clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID || ""}
-            >
-              <Router>{children}</Router>
-            </GoogleOAuthProvider>
+            <Router>{children}</Router>
           </AuthProvider>
         </QueryClientProvider>
       </ErrorBoundary>

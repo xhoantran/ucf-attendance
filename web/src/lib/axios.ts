@@ -5,6 +5,10 @@ import { useNotificationStore } from "@/stores/notifications";
 import storage from "@/utils/storage";
 import { useAuth } from "@/stores/useAuth";
 
+export const authAxios = Axios.create({
+  baseURL: API_URL,
+});
+
 export const axios = Axios.create({
   baseURL: API_URL,
 });

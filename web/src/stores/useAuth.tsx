@@ -1,15 +1,15 @@
+import { getUser, LoginCredentialsDTO, loginWithEmailAndPassword } from "@/features/auth";
+import type { AuthUser } from "@/features/auth/types";
 import { axios } from "@/lib/axios";
+import storage from "@/utils/storage";
 import { useEffect } from "react";
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
-import storage from "@/utils/storage";
-import type { AuthUser } from "@/features/auth/types";
-import { loginWithGoogle, getUser } from "@/features/auth";
 
 interface IAuthState {
   user: AuthUser | null;
   loadUser: () => Promise<void | Error>;
-  loginWithGoogle: (code: string) => Promise<void | Error>;
+  login: (credentials: LoginCredentialsDTO) => Promise<void | Error>;
   logout: () => void;
 }
 
@@ -18,12 +18,13 @@ export const useAuth = create<IAuthState>()(
     persist(
       (set) => ({
         user: null,
-        loginWithGoogle: async (code: string) => {
-          const response = await loginWithGoogle({ code });
-          const { refresh, access, user } = response;
-          storage.setAccessToken(access);
-          storage.setRefreshToken(refresh);
-          set({ user });
+        login: async (credentials: LoginCredentialsDTO) => {
+          const data = await loginWithEmailAndPassword(credentials);
+          if (data) {
+            storage.setAccessToken(data.access);
+            storage.setRefreshToken(data.refresh);
+            set({ user: data.user });
+          }
         },
         loadUser: async () => {
           const data = await getUser();
