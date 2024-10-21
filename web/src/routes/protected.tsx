@@ -32,7 +32,7 @@ const App = () => {
     <MainLayout>
       <Suspense
         fallback={
-          <div className="h-screen w-screen flex items-center justify-center">
+          <div className="h-full w-full flex items-center justify-center">
             <Spinner size="xl" />
           </div>
         }

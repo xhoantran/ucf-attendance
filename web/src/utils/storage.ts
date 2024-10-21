@@ -2,9 +2,8 @@ const storagePrefix = "attendance_";
 
 const storage = {
   getAccessToken: () => {
-    return JSON.parse(
-      window.localStorage.getItem(`${storagePrefix}access_token`) as string
-    );
+    const token = window.localStorage.getItem(`${storagePrefix}access_token`);
+    return token === "undefined" ? null : JSON.parse(token as string);
   },
   setAccessToken: (token: string) => {
     window.localStorage.setItem(
@@ -13,9 +12,8 @@ const storage = {
     );
   },
   getRefreshToken: () => {
-    return JSON.parse(
-      window.localStorage.getItem(`${storagePrefix}refresh_token`) as string
-    );
+    const token = window.localStorage.getItem(`${storagePrefix}refresh_token`);
+    return token === "undefined" ? null : JSON.parse(token as string);
   },
   setRefreshToken: (token: string) => {
     window.localStorage.setItem(
